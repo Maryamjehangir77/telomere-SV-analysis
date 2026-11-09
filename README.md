@@ -1,64 +1,47 @@
-Notebooks
+# Telomere and structural-variation analyses
 
-This directory contains the Jupyter notebooks and scripts used to perform the telomere-SV analysis and generate data for the project figures. All processed genomics data is hosted on Synapse:
-Project Link:https://www.synapse.org/Synapse:syn72016012/datasets/
+This is my fork of the collaborative [Barthel Lab project](https://github.com/barthel-lab/telomere-SV-analysis). It contains Jupyter notebooks and scripts for telomere metrics, structural variation, clinical integration, extrachromosomal DNA, copy-number changes, and spatial analyses across TCGA and GLASS cohorts. I contributed analysis notebooks and figure workflows; the upstream repository preserves the lab-wide project history.
 
-Directory Structure
+## Data
 
-Fig 1: TCGA Cohort Overview & Telomere Metrics
+Processed genomics data are hosted on [Synapse](https://www.synapse.org/Synapse:syn72016012/datasets/) and are not included in this repository. Download the required data and update input paths in each notebook before running. Notebooks are grouped by figure and analysis topic; there is no guaranteed sequential run order.
 
-    TCGA_GLASS_paired_samples_only_updated.ipynb: Comparative analysis of paired TCGA and GLASS datasets.
+## Analyses
 
-    TCGA_GLASS_unpaired_samples.ipynb: Analysis of unpaired cohort samples.
+**Figure 1 — Cohort overview and telomere metrics**
+- `TCGA_GLASS_paired_samples_only_updated.ipynb` — paired TCGA and GLASS cohorts
+- `TCGA_GLASS_unpaired_samples.ipynb` — unpaired cohort analysis
+- `TCGA_telomere_associationplots_clean.ipynb` — TCGA telomere association plots
+- `long-reads_cov_n50.ipynb` — long-read coverage and N50 metrics
 
-    TCGA_telomere_associationplots_clean.ipynb: Telomere association plotting for TCGA
+**Figure 2 — Structural variants and clinical data**
+- `clinical_data_heatmap.ipynb`
+- `severus/`, `sniffles/`, and `CNVs/` — caller-specific structural-variant and copy-number analyses
 
-    long-reads_cov_n50.ipynb: Sequencing coverage and N50 quality metrics from our long reads cohort.
-    
-Fig 2: Structural Variant & Clinical Integration
+**Figure 3 — Extrachromosomal DNA and genomic repeats**
+- `decoil.ipynb` — ecDNA reconstruction with Decoil
+- `HGs_extraction.ipynb` — copy-number gain extraction
 
-    clinical_data_heatmap.ipynb: Integration of clinical metadata with genomic findings.
+**Figure 4 — Telomeres and genomic instability**
+- `telomers_analysis_v2.ipynb` — telomere-length analysis
+- `generate_figures.py` — figure generation and statistical modeling
 
-    severus/: Sub-analysis of SVs using the Severus caller (BND subtypes, barplots, and heatmaps).
+**Figure 5 — Distance and spatial analyses**
+- `TCGA_GLASS_distance_analysis.ipynb`
+- `severus/` and `sniffles/` — spatial analyses for SV calls
 
-    sniffles/: Comparative SV analysis using the Sniffles caller.
+**Additional analyses**
+- `aneuploidy_plot.ipynb`
+- `survival_analysis.ipynb`
 
-    CNVs/: Visualization of Copy Number Variants via barplots and heatmaps.
+## Environment
 
-Fig 3: ecDNA & Genomic Repeats
+The following setup is for `generate_figures.py` only. It is not a complete environment for every notebook; check each notebook for additional dependencies and tools.
 
-    decoil.ipynb: Analysis using the Decoil tool for ecDNA reconstruction.
+```bash
+conda create -n telomere_env python=3.12 -y
+conda activate telomere_env
+pip install pandas numpy matplotlib seaborn scipy statsmodels
+```
 
-    HGs_extraction.ipynb: Extraction of Gigh-Gains from Copy number data.
-    
-Fig 4: Telomere Associations & Genomic Instability
-
-    telomers_analysis_v2.ipynb: Primary telomere length analysis.
-
-    generate_figures.py: Final figure generation (A–E) and statistical modeling.
-    
-Setup environment for generate_figures.py
-
-    conda create -n telomere_env python=3.12 -y
-
-    conda activate telomere_env
-
-    pip install pandas numpy matplotlib seaborn scipy statsmodels
-
-Fig 5: Distance & Spatial Analysis
-
-    TCGA_GLASS_distance_analysis.ipynb: Distance analysis across TCGA and GLASS cohorts.
-
-     severus/: Spatial SV and somatic distance analysis using Severus.
-
-     sniffles/: Spatial SV analysis and line plots using Sniffles.
-     
-Additional Analyses
-
-    aneuploidy_plot.ipynb: Chromosomal arm-level alterations.
-
-    survival_analysis.ipynb: Clinical survival modeling and genomic metrics.
-    
-Usage
-
-Most notebooks depend on processed data located in the ../data directory and output results to ../output or ../plots.# telomere-SV-analysis
+The notebooks have not been documented as a clean-install, end-to-end reproduction from this fork alone. See the upstream repository and the project data on Synapse for shared context and inputs.
